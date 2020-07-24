@@ -1,20 +1,10 @@
-# """
-# (from wikipedia) 
-# """
-
-
-# def lcg(modulus, a, c, seed):
-#     """Linear congruential generator."""
-#     for i in range(3):
-#         seed = (a * seed + c) % modulus
-#         yield seed
-
 
 rnumbers = []
 
 def rng(seed, a, c, modulo, iter):
     """
     This function generates a list of random numbers of length 'iter'
+    We get the correct first three random numbers
     """
     exit_lst = []
     for i in range(int(iter)):
@@ -23,6 +13,7 @@ def rng(seed, a, c, modulo, iter):
     
     return exit_lst
 
+print(rng(1000, 24693, 3967, 2**15, 3))
 
 
 
