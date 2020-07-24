@@ -24,6 +24,15 @@ rnumbers = rng(1000, 24693, 3967, 2**15, 3)
 
 print(rnumbers)
 
+def expo_variable(random_number):
+    #this is the function responsbile for picking the random variable X, which describes the probability that the customer will come and pick up within X minutes
+
+    """
+    1/lambda = 12 
+    FX(x) = 
+    """
+
+
 def iterator(random_number):
     global w 
 
