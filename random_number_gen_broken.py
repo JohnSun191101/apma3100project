@@ -13,7 +13,7 @@ def rng(seed, a, c, modulo, iter):
     
     return exit_lst
 
-print(rng(1000, 24693, 3967, 2**15, 3))
+# print(rng(1000, 24693, 3967, 2**15, 3))
 
 
 
@@ -77,32 +77,112 @@ Prop 2: 0.4947
 This distribution is pretty darn close to the PMF of X measuring availability.
 """
 
+import math
+import statistics
 def expo_variable(random_number):
-    #this is the function responsbile for picking the random variable X, which describes the probability that the customer will come and pick up within X minutes
+    #this is the function responsbile for picking the random variable X, which describes the probability that the customer will come and pick up within X seconds
+    #Essentially, this function takes in a probability and returns the X associated with it, basically an inverse CDF. 
 
     """
+    Random Variable X describing the number of seconds it takes for customer to pick up the phone
     1/lambda = 12 
-    FX(x) = 
+    FX(x) = 1 - e^(-1/12 * x)
+    F_X^-1(x) = -12*ln(1-x)
     """
 
+    return -12*(math.log(1 - random_number)) 
 
-# def iterator(random_number):
-#     global w 
 
-#     w = 0
+"""
+testing the expo_variable function
 
-#     w += 6
+Test by realizing a known probability P(X <= x)
+We know that P(X <= 20) = 0.8111243972, so inputting 0.8111243972, we should expect an X close to 20
 
-#     if random_number < 0.2:
-#         w += 4 
-#         #case where line is busy
+running the following line: 
+
+print(expo_variable(0.8111243972))
+
+20.000000002386447 prints to console
+Pretty darn close.
+
+Extra testing code: 
+
+
+# p = rng(1000, 24693, 3967, 2**15, 1000)
+# testlist = []
+# for i in p[500:]:
+#     testlist.append(expo_variable(i))
+# print(statistics.mean(testlist))
+
+
+"""
+
+
+
+
+
+
+
+
+def iterator():
+    global w 
     
-#     elif random_number < 0.3:
-#         w += 26 
-#         #case where customer is out of the office
 
-#     elif random_number < 0.5:
-#         #case where customer is at desk
+    w_list = []
+
+    avail_sequence = []
+    avail_randnums = rng(1000, 24693, 3967, 2**15, 500)
+    for i in avail_randnums:
+        avail_sequence.append(availability_Vargenerator(i))
+    
+
+    expo_sequence = []
+    expo_randnums = rng(1000, 24693, 3967, 2**15, 1000)
+    for i in expo_randnums[501:]:
+        expo_sequence.append(expo_variable(i))
+    
+    
+
+    for i in range(500):
+        w = 0
+        w += 6
+        n = 0 
+
+        if avail_sequence[i] == 0:
+            w += 26 
+        
+        elif avail_sequence[i] == 1: 
+            w += 4
+        
+        elif avail_sequence[i] == 2: 
+            
+            if expo_sequence[i] < 25: 
+                w += expo_sequence[i] + 1 
+            
+            elif expo_sequence[i] >= 25: 
+                w += 26
+            
+        
+        n += 1 
+            
+        #working on building in the iterations, maybe a while loop on the top is needed 
+        
+
+
+
+    print(avail_sequence)
+    print(expo_sequence)
+   
+
+    
+
+
+
+
+
+
+
         
 
 
